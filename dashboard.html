@@ -1,340 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClearVue Sales Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #fff3f3;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Custom scrollbar for table */
-        ::-webkit-scrollbar {
-            height: 8px;
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e5e7eb;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #9ca3af;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
-        }
-
-        .chart-placeholder {
-            height: 200px;
-            background-color: #f3f4f6;
-            border: 2px dashed #d1d5db;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6b7280;
-            font-weight: 500;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ClearVue Sales Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #fff3f3;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { height: 8px; width: 8px; }
+    ::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    .chart-placeholder {
+      height: 200px; background-color: #f3f4f6; border: 2px dashed #d1d5db;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: #6b7280; font-weight: 500;
+    }
+  </style>
 </head>
 <body class="bg-[#fff3f3] text-gray-800">
 
-    <!-- Blue Ribbon with Centered Title and Icons -->
-    <div class="bg-[#003366] text-white p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between sticky top-0 z-50">
-        <h1 class="text-2xl sm:text-3xl font-bold text-center w-full">ClearVue Ltd.</h1>
-        <div class="flex items-center gap-4 mt-4 sm:mt-0">
-            <!-- Notifications Icon -->
-            <button id="notification-button" class="text-white hover:text-gray-300 transition-colors relative hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0a2 2 0 11-4 0m4 0v1a3 3 0 01-3 3H9a3 3 0 01-3-3v-1m-6-1a1 1 0 010-2h2a1 1 0 011-1h10a1 1 0 011 1h2a1 1 0 010 2h-2m-8-2v-1"/>
-                </svg>
-            </button>
-            <!-- User Profile Icon -->
-            <div id="user-profile-icon" class="hidden">
-                <div class="w-10 h-10 rounded-full bg-white text-[#003366] flex items-center justify-center font-bold text-lg cursor-pointer">
-                    <span id="user-initial">U</span>
-                </div>
-            </div>
-            <!-- Auth Button -->
-            <button id="auth-button" class="bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors">
-                Login
-            </button>
+  <!-- Header -->
+  <div class="bg-[#003366] text-white p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between sticky top-0 z-50">
+    <h1 class="text-2xl sm:text-3xl font-bold text-center w-full">ClearVue Ltd.</h1>
+    <div class="flex items-center gap-4 mt-4 sm:mt-0">
+      <button id="notification-button" class="text-white hover:text-gray-300 transition-colors relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0a2 2 0 11-4 0m4 0v1a3 3 0 01-3 3H9a3 3 0 01-3-3v-1m-6-1a1 1 0 010-2h2a1 1 0 011-1h10a1 1 0 011 1h2a1 1 0 010 2h-2m-8-2v-1"/>
+        </svg>
+      </button>
+      <div id="user-profile-icon">
+        <div class="w-10 h-10 rounded-full bg-white text-[#003366] flex items-center justify-center font-bold text-lg cursor-pointer">
+          <span id="user-initial">U</span>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Main Content Area -->
-    <main class="flex min-h-screen">
-        <!-- Sidebar Navigation (Hidden by default) -->
-        <aside id="sidebar" class="w-64 bg-white p-4 shadow-xl border-r border-gray-200 hidden">
-            <nav class="space-y-4">
-                <a href="#" id="menu-dashboard" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors bg-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="#" id="menu-reports" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m-4-8h2m-4 0h2m4 0h2m-2 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    Reports
-                </a>
-                <a href="#" id="menu-notifications" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">
-                    <svg xmlns="http://www.w3.0rg/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0a2 2 0 11-4 0m4 0v1a3 3 0 01-3 3H9a3 3 0 01-3-3v-1m-6-1a1 1 0 010-2h2a1 1 0 011-1h10a1 1 0 011 1h2a1 1 0 010 2h-2m-8-2v-1"/>
-                    </svg>
-                    Notifications
-                </a>
-                <a href="#" id="menu-profile" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                    Profile
-                </a>
-                <a href="#" id="menu-settings" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.941 3.31.829 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.941 1.543-.829 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.829-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.829-3.31 2.37-2.37.568.347 1.28.532 2.01.532zm-.708 1.49l.065-.184a2.246 2.246 0 013.25 1.583 2.246 2.246 0 01-1.583 3.25l-.184.065a2.246 2.246 0 01-1.583-3.25 2.246 2.246 0 013.25-1.583z"/>
-                    </svg>
-                    Settings
-                </a>
-                <a href="#" id="menu-logout" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                    </svg>
-                    Logout
-                </a>
-            </nav>
-        </aside>
+  <main class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white p-4 shadow-xl border-r border-gray-200">
+      <nav class="space-y-4">
+        <a href="#" id="menu-dashboard" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors bg-gray-200">Dashboard</a>
+        <a href="#" id="menu-reports" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">Reports</a>
+        <a href="#" id="menu-notifications" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">Notifications</a>
+        <a href="#" id="menu-profile" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">Profile</a>
+        <a href="#" id="menu-settings" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">Settings</a>
+        <a href="#" id="menu-logout" class="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-gray-200 transition-colors">Logout</a>
+      </nav>
+    </aside>
 
-        <!-- Main Content Area -->
-        <section class="flex-1 p-6 sm:p-8 overflow-y-auto">
-            <!-- Content for both Pre- and Post-Login -->
-            <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8">
-                <!-- Overview Section - Visible by default -->
-                <div id="overview-section">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Overview</h2>
-                    <div id="welcome-message" class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg hidden">
-                        <p class="text-sm font-medium text-gray-700">Welcome! Here you can find all your sales insights.</p>
-                    </div>
-                    <!-- Sales Overview -->
-                    <div class="mb-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Sales Overview</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                                <h4 class="text-lg font-semibold mb-2 text-gray-800">Total Sales</h4>
-                                <div class="text-3xl font-bold text-[#003366]">Loading...</div>
-                                <p class="text-sm text-gray-500 mt-2">Aggregated sales value for the selected period.</p>
-                            </div>
-                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                                <h4 class="text-lg font-semibold mb-2 text-gray-800">New Customers</h4>
-                                <div class="text-3xl font-bold text-[#003366]">Loading...</div>
-                                <p class="text-sm text-gray-500 mt-2">Count of new customers who made a purchase.</p>
-                            </div>
-                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                                <h4 class="text-lg font-semibold mb-2 text-gray-800">Top Product</h4>
-                                <div class="text-3xl font-bold text-[#003366]">Loading...</div>
-                                <p class="text-sm text-gray-500 mt-2">The highest-selling product by quantity or revenue.</p>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                            <h4 class="text-lg font-semibold mb-2 text-gray-800">Sales Trend Chart</h4>
-                            <div class="chart-placeholder">Chart</div>
-                            <p class="text-sm text-gray-500 mt-2">Visual representation of daily, weekly, and monthly sales performance, aligned with the company's financial year structure.</p>
-                        </div>
-                    </div>
+    <!-- Content -->
+    <section class="flex-1 p-6 sm:p-8 overflow-y-auto">
+      <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <!-- Dashboard -->
+        <div id="overview-section"> <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Dashboard Overview</h2> <div id="welcome-message" class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg"> <p class="text-sm font-medium text-gray-700">Welcome! Here you can find all your sales insights.</p> </div> <div class="mb-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200"> <h3 class="text-xl font-semibold text-gray-800 mb-4">Sales Overview</h3> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6"> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">Total Sales</h4> <div class="text-3xl font-bold text-[#003366]">Loading...</div> <p class="text-sm text-gray-500 mt-2">Aggregated sales value for the selected period.</p> </div> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">New Customers</h4> <div class="text-3xl font-bold text-[#003366]">Loading...</div> <p class="text-sm text-gray-500 mt-2">Count of new customers who made a purchase.</p> </div> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">Top Product</h4> <div class="text-3xl font-bold text-[#003366]">Loading...</div> <p class="text-sm text-gray-500 mt-2">The highest-selling product by quantity or revenue.</p> </div> </div> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">Sales Trend Chart</h4> <div class="chart-placeholder">Chart</div> <p class="text-sm text-gray-500 mt-2">Visual representation of daily, weekly, and monthly sales performance, aligned with the company's financial year structure.</p> </div> </div> <div class="mb-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200"> <h3 class="text-xl font-semibold text-gray-800 mb-4">Product Performance</h3> <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">Product Category Breakdown</h4> <div class="chart-placeholder">Chart</div> <p class="text-sm text-gray-500 mt-2">This chart segments sales data by product category, providing insight into which product lines are most profitable and popular.</p> </div> <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"> <h4 class="text-lg font-semibold mb-2 text-gray-800">Top 5 Products by Revenue</h4> <div class="chart-placeholder">Chart</div> <p class="text-sm text-gray-500 mt-2">A quick-view table that displays the top five products based on total revenue generated.</p> </div> </div> </div> </div>
 
-                    <!-- Product Performance Section -->
-                    <div class="mb-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Product Performance</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                                <h4 class="text-lg font-semibold mb-2 text-gray-800">Product Category Breakdown</h4>
-                                <div class="chart-placeholder">Chart</div>
-                                <p class="text-sm text-gray-500 mt-2">This chart segments sales data by product category, providing insight into which product lines are most profitable and popular.</p>
-                            </div>
-                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
-                                <h4 class="text-lg font-semibold mb-2 text-gray-800">Top 5 Products by Revenue</h4>
-                                <div class="chart-placeholder">Chart</div>
-                                <p class="text-sm text-gray-500 mt-2">A quick-view table that displays the top five products based on total revenue generated.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Other views (hidden by default) -->
-                <div id="other-views" class="hidden">
-                    <div id="reports-view" class="hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Reports</h2>
-                        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                            <p class="text-gray-700">This section is reserved for your teammate's reports interface.</p>
-                            <p class="text-sm text-gray-500 mt-2">When their work is integrated, it will appear here.</p>
-                        </div>
-                    </div>
-
-                    <div id="notifications-view" class="hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Notifications</h2>
-                        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                            <p class="text-gray-700">This page will display all your recent notifications and alerts.</p>
-                            <p class="text-sm text-gray-500 mt-2">Feature to be developed.</p>
-                        </div>
-                    </div>
-
-                    <div id="profile-view" class="hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">User Profile</h2>
-                        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                            <p class="text-gray-700">This section will contain the user's profile information and allow them to update it.</p>
-                            <p class="text-sm text-gray-500 mt-2">To be developed in a future sprint.</p>
-                        </div>
-                    </div>
-
-                    <div id="settings-view" class="hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Settings</h2>
-                        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                            <p class="text-gray-700">This section will contain various user and dashboard settings.</p>
-                            <p class="text-sm text-gray-500 mt-2">To be developed in a future sprint.</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- Other Views -->
+        <div id="other-views" class="hidden">
+          <!-- Reports -->
+          <div id="reports-view" class="hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Reports</h2>
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200 space-y-4">
+              <button class="w-full bg-[#003366] text-white py-2 rounded-lg hover:bg-[#002244]">Customers Report</button>
+              <button class="w-full bg-[#003366] text-white py-2 rounded-lg hover:bg-[#002244]">Products Report</button>
+              <button class="w-full bg-[#003366] text-white py-2 rounded-lg hover:bg-[#002244]">Sales Report</button>
+              <button class="w-full bg-[#003366] text-white py-2 rounded-lg hover:bg-[#002244]">Suppliers Report</button>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <!-- Message Box for user feedback -->
-    <div id="message-box" class="fixed bottom-6 right-6 w-full max-w-sm bg-[#003366] text-white rounded-lg shadow-lg p-4 transition-transform transform translate-y-full hidden">
-        <p id="message-text" class="text-sm"></p>
-    </div>
+          <!-- Notifications -->
+          <div id="notifications-view" class="hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Notifications</h2>
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+              <p class="text-gray-700">Under Construction</p>
+            </div>
+          </div>
 
-    <script>
-        const authButton = document.getElementById('auth-button');
-        const userProfileIcon = document.getElementById('user-profile-icon');
-        const userInitialSpan = document.getElementById('user-initial');
-        const notificationButton = document.getElementById('notification-button');
-        const sidebar = document.getElementById('sidebar');
-        const welcomeMessage = document.getElementById('welcome-message');
-        const otherViews = document.getElementById('other-views');
+          <!-- Profile -->
+          <div id="profile-view" class="hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">User Profile</h2>
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200 space-y-4">
+              <input type="text" id="username" placeholder="Username" class="w-full border border-gray-300 rounded-lg p-2"/>
+              <input type="password" id="password" placeholder="Password" class="w-full border border-gray-300 rounded-lg p-2"/>
+              <input type="password" id="confirm-password" placeholder="Confirm Password" class="w-full border border-gray-300 rounded-lg p-2"/>
+              <button id="update-login" class="w-full bg-[#003366] text-white py-2 rounded-lg hover:bg-[#002244]">Update Login Details</button>
+            </div>
+          </div>
 
-        const reportsView = document.getElementById('reports-view');
-        const notificationsView = document.getElementById('notifications-view');
-        const profileView = document.getElementById('profile-view');
-        const settingsView = document.getElementById('settings-view');
+          <!-- Settings -->
+          <div id="settings-view" class="hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Settings</h2>
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+              <p class="text-gray-700">Under Construction</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        const menuDashboard = document.getElementById('menu-dashboard');
-        const menuReports = document.getElementById('menu-reports');
-        const menuNotifications = document.getElementById('menu-notifications');
-        const menuProfile = document.getElementById('menu-profile');
-        const menuSettings = document.getElementById('menu-settings');
-        const menuLogout = document.getElementById('menu-logout');
+  <!-- Message Box -->
+  <div id="message-box" class="fixed bottom-6 right-6 w-full max-w-sm bg-[#003366] text-white rounded-lg shadow-lg p-4 transition-transform transform translate-y-full hidden">
+    <p id="message-text" class="text-sm"></p>
+  </div>
 
-        // This function simulates the login/logout process for a local preview
-        function handleAuth() {
-            // Check if we are currently "logged in" by looking at the auth button text
-            const isLoggedIn = authButton.textContent === 'Logout';
+  <!-- Script -->
+  <script>
+    const userInitialSpan = document.getElementById('user-initial');
+    const reportsView = document.getElementById('reports-view');
+    const notificationsView = document.getElementById('notifications-view');
+    const profileView = document.getElementById('profile-view');
+    const settingsView = document.getElementById('settings-view');
+    const menuDashboard = document.getElementById('menu-dashboard');
+    const menuReports = document.getElementById('menu-reports');
+    const menuNotifications = document.getElementById('menu-notifications');
+    const menuProfile = document.getElementById('menu-profile');
+    const menuSettings = document.getElementById('menu-settings');
+    const menuLogout = document.getElementById('menu-logout');
+    const otherViews = document.getElementById('other-views');
 
-            if (isLoggedIn) {
-                // If logged in, simulate logout
-                toggleViews(false);
-                authButton.textContent = 'Login';
-                showMessage("You have been signed out.");
-            } else {
-                // If logged out, simulate login
-                toggleViews(true);
-                showPage('dashboard');
-                authButton.textContent = 'Logout';
-                userInitialSpan.textContent = 'T'; // Use a test initial
-                showMessage("Login successful.");
-            }
-        }
+    function initializeDashboard() {
+      const storedName = localStorage.getItem('userName');
+      userInitialSpan.textContent = storedName ? storedName.charAt(0).toUpperCase() : 'U';
+      showPage('dashboard');
+    }
 
-        function showMessage(message, duration = 3000) {
-            const messageBox = document.getElementById('message-box');
-            const messageText = document.getElementById('message-text');
-            messageText.textContent = message;
-            messageBox.classList.remove('hidden', 'translate-y-full');
-            messageBox.classList.add('translate-y-0');
+    function handleLogout(e) {
+      e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPassword');
+      window.location.href = '../ClearVuLogin/LoginIndex.html';
+    }
 
-            setTimeout(() => {
-                messageBox.classList.remove('translate-y-0');
-                messageBox.classList.add('translate-y-full');
-                setTimeout(() => {
-                    messageBox.classList.add('hidden');
-                }, 500);
-            }, duration);
-        }
+    function showPage(pageId) {
+      const dashboardSection = document.getElementById('overview-section');
+      const pages = [reportsView, notificationsView, profileView, settingsView];
+      const menuItems = [menuDashboard, menuReports, menuNotifications, menuProfile, menuSettings];
+      dashboardSection.classList.add('hidden');
+      pages.forEach(p => p.classList.add('hidden'));
+      menuItems.forEach(m => m.classList.remove('bg-gray-200'));
 
-        function showPage(pageId) {
-            const pages = [reportsView, notificationsView, profileView, settingsView];
-            const menuItems = [menuDashboard, menuReports, menuNotifications, menuProfile, menuSettings];
+      switch (pageId) {
+        case 'dashboard': dashboardSection.classList.remove('hidden'); menuDashboard.classList.add('bg-gray-200'); break;
+        case 'reports': otherViews.classList.remove('hidden'); reportsView.classList.remove('hidden'); menuReports.classList.add('bg-gray-200'); break;
+        case 'notifications': otherViews.classList.remove('hidden'); notificationsView.classList.remove('hidden'); menuNotifications.classList.add('bg-gray-200'); break;
+        case 'profile': otherViews.classList.remove('hidden'); profileView.classList.remove('hidden'); menuProfile.classList.add('bg-gray-200'); break;
+        case 'settings': otherViews.classList.remove('hidden'); settingsView.classList.remove('hidden'); menuSettings.classList.add('bg-gray-200'); break;
+      }
+    }
 
-            pages.forEach(page => page.classList.add('hidden'));
-            menuItems.forEach(item => item.classList.remove('bg-gray-200'));
+    // Events
+    menuLogout.addEventListener('click', handleLogout);
+    menuDashboard.addEventListener('click', e => { e.preventDefault(); showPage('dashboard'); });
+    menuReports.addEventListener('click', e => { e.preventDefault(); showPage('reports'); });
+    menuNotifications.addEventListener('click', e => { e.preventDefault(); showPage('notifications'); });
+    menuProfile.addEventListener('click', e => { e.preventDefault(); showPage('profile'); });
+    menuSettings.addEventListener('click', e => { e.preventDefault(); showPage('settings'); });
+    document.getElementById('notification-button').addEventListener('click', e => { e.preventDefault(); showPage('notifications'); });
 
-            switch (pageId) {
-                case 'dashboard':
-                    menuDashboard.classList.add('bg-gray-200');
-                    otherViews.classList.add('hidden');
-                    break;
-                case 'reports':
-                    otherViews.classList.remove('hidden');
-                    reportsView.classList.remove('hidden');
-                    menuReports.classList.add('bg-gray-200');
-                    break;
-                case 'notifications':
-                    otherViews.classList.remove('hidden');
-                    notificationsView.classList.remove('hidden');
-                    menuNotifications.classList.add('bg-gray-200');
-                    break;
-                case 'profile':
-                    otherViews.classList.remove('hidden');
-                    profileView.classList.remove('hidden');
-                    menuProfile.classList.add('bg-gray-200');
-                    break;
-                case 'settings':
-                    otherViews.classList.remove('hidden');
-                    settingsView.classList.remove('hidden');
-                    menuSettings.classList.add('bg-gray-200');
-                    break;
-            }
-        }
+    // Update login handler
+    document.getElementById('update-login').addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      if (!username || !password || !confirmPassword) {
+        alert('Please fill in all fields.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert('Passwords do not match.');
+        return;
+      }
+      localStorage.setItem('userName', username);
+      localStorage.setItem('userPassword', password);
+      alert('Login details updated successfully!');
+    });
 
-        function toggleViews(isLoggedIn) {
-            if (isLoggedIn) {
-                // If logged in, show the private elements
-                sidebar.classList.remove('hidden');
-                welcomeMessage.classList.remove('hidden');
-                authButton.classList.add('hidden');
-                userProfileIcon.classList.remove('hidden');
-                notificationButton.classList.remove('hidden');
-            } else {
-                // If logged out, hide the private elements
-                sidebar.classList.add('hidden');
-                welcomeMessage.classList.add('hidden');
-                authButton.classList.remove('hidden');
-                userProfileIcon.classList.add('hidden');
-                notificationButton.classList.add('hidden');
-                // Ensure we are back on the overview page
-                showPage('dashboard');
-            }
-        }
-
-        authButton.addEventListener('click', handleAuth);
-        menuLogout.addEventListener('click', handleAuth);
-
-        notificationButton.addEventListener('click', (e) => { e.preventDefault(); showPage('notifications'); });
-        menuDashboard.addEventListener('click', (e) => { e.preventDefault(); showPage('dashboard'); });
-        menuReports.addEventListener('click', (e) => { e.preventDefault(); showPage('reports'); });
-        menuNotifications.addEventListener('click', (e) => { e.preventDefault(); showPage('notifications'); });
-        menuProfile.addEventListener('click', (e) => { e.preventDefault(); showPage('profile'); });
-        menuSettings.addEventListener('click', (e) => { e.preventDefault(); showPage('settings'); });
-
-        // Initial state on page load
-        showPage('dashboard');
-    </script>
+    initializeDashboard();
+  </script>
 </body>
 </html>
 
